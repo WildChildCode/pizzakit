@@ -15,13 +15,13 @@
    - PostgerSQL: [PostgreSQL server](https://www.postgresql.org), [PgAdmin](https://www.pgadmin.org), [JDBC](https://jdbc.postgresql.org)
    - OracleXE: [Oracle XE server](https://www.oracle.com/database/technologies/appdev/xe.html), [OracleSqlDeveloper](https://www.oracle.com/database/technologies/appdev/sql-developer.html), [JDBC](https://www.oracle.com/database/technologies/appdev/jdbc-downloads.html)
 >Note 1: 
->JDBC drivers can be loaded by maven as dependency - see file pom.xml
+>JDBC drivers can be loaded by maven as dependency - see file pom.xml. 
 >As a DBMS client you can use "Database" Tool of InteliJ IDEA, or [Jetbrains DataGrip](https://www.jetbrains.com/datagrip/) - universal tool for different databases
 
 >Note 2: 
->I have used PostgreSQL 11, Appache-tomcat-9.0.29 app server to run the examples 
+>I have used PostgreSQL 11 and Appache-tomcat-9.0.29 app server to run the examples 
 ## Build and run examples
-Read STARTAPPLICATION.PDF, you can find ste-by-step instructions "how to build and run application" there for every branch
+You can find ste-by-step instructions "how to build and run application" for every branch in STARTAPPLICATION.PDF file
 ## Project structure
 - src/main/java - application classes
 - src/test/java - class for tests (it's created by maven and isn't used in the project)
