@@ -17,6 +17,7 @@
 >Note 1: 
 >JDBC drivers can be loaded by maven as dependency - see file pom.xml
 >As a DBMS client you can use "Database" Tool of InteliJ IDEA, or [Jetbrains DataGrip](https://www.jetbrains.com/datagrip/) - universal tool for different databases
+
 >Note 2: 
 >I have used PostgreSQL 11, Appache-tomcat-9.0.29 app server to run the examples 
 ## Build and run examples
