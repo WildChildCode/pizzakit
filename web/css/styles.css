@@ -1,0 +1,106 @@
+body {
+    background: linear-gradient(to bottom, black, white);
+    background-repeat: no-repeat;
+}
+
+.items-list {
+    background-color: whitesmoke;
+    box-sizing: border-box;
+    max-width: 60vw;
+    min-width: 40vw;
+    min-height: 80vh;
+    margin: auto;
+    border: solid red 2px;
+    border-radius: 10pt;
+    padding: 1em 2vw;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    color: white;
+    margin: 1em 20vw;
+    box-sizing: border-box;
+    max-width: 60vw;
+    min-width: 40vw;
+}
+
+#cart {
+    width: 20vw;
+    position: absolute;
+    left: 70vw;
+    top: 0;
+    color: white;
+    margin-top: 1em;
+}
+
+#cart p {
+    margin: 0;
+}
+
+.pizza_img_small {
+    border-radius: 5px;
+    margin: 20px;
+}
+
+.description {
+    font-style: italic;
+}
+.item {
+    margin: 10px 0;
+    box-shadow: 2pt 2pt 2pt 2pt grey;
+    border-radius: 5pt;
+    font-size: large;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+.pizza_name_h2 {
+    margin-top: 15px;
+    font-size: x-large;
+}
+.pizza_name_h3 {
+    margin-top: 10px;
+    font-size: x-large;
+}
+.cart-header {
+    font-size: x-large;
+}
+.controls-pane {
+    padding: 0;
+    margin: 0;
+    height: 50px;
+}
+.button-add {
+    width: 70px;
+    font-size: 13pt;
+    font-weight: bold;
+    padding: 1px 0 2px 0;
+}
+.submit-button{
+    font-size: 12pt;
+    padding: 2px 20px;
+}
+.size {
+    width: 100px;
+    font-size: 13pt;
+}
+.quantity-chooser {
+    width: 70px;
+    font-size: 13pt;
+    box-shadow: none;
+    padding: 2px 2px 1px 10px;
+}
+.control {
+    box-sizing: border-box;
+    background: #fffffe;
+    border: gray 1px solid;
+    border-radius: 5px;
+}
+footer p {
+    text-align: center;
+    font-size: medium;
+}
+#submitform{
+    display: none;
+}
