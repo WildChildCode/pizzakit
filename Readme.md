@@ -11,7 +11,7 @@
 4. [Apache-Tomcat](https://tomcat.apache.org) Application Server (If you are a newcomer, download zipped binaries (there are *.bat for Win and *.sh for bash in ./bin directory))
 5. Browser (FireFox and etc.)
 6. DataBase Management System, client and jdbc drivers
-   - MySQL: [MySQL Community server](https://www.mysql.com/products/community/), MySQL Workbench and JDBC can bi installed through server installer
+   - MySQL: [MySQL Community server](https://www.mysql.com/products/community/), MySQL Workbench and JDBC are usually a part of server installer
    - PostgerSQL: [PostgreSQL server](https://www.postgresql.org), [PgAdmin](https://www.pgadmin.org), [JDBC](https://jdbc.postgresql.org)
    - OracleXE: [Oracle XE server](https://www.oracle.com/database/technologies/appdev/xe.html), [OracleSqlDeveloper](https://www.oracle.com/database/technologies/appdev/sql-developer.html), [JDBC](https://www.oracle.com/database/technologies/appdev/jdbc-downloads.html)
 >Note 1: 
