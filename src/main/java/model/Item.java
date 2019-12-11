@@ -1,23 +1,24 @@
 package model;
 
-import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
 
 public class Item extends BaseUUIDEntity{
     private Pizza pizza;
-    private int quantity;
+    private int amount;
     private Pizza.Sizes size;
+    private int cost;
 
-    protected Item(Pizza pizza, int quantity, Pizza.Sizes size) {
-        this(generateUuid(), pizza, quantity, size);
+    protected Item(Pizza pizza, int amount, Pizza.Sizes size) {
+        this(generateUuid(), pizza, amount, size);
     }
 
-    protected Item(UUID uuid, Pizza pizza, int quantity, Pizza.Sizes size) {
+    protected Item(UUID uuid, Pizza pizza, int amount, Pizza.Sizes size) {
         super(uuid);
         this.pizza = pizza;
-        this.quantity = quantity;
+        this.amount = amount;
         this.size = size;
+        this.cost = pizza.getCost(size);
     }
 
     public Pizza getPizza() {
@@ -28,12 +29,12 @@ public class Item extends BaseUUIDEntity{
         this.pizza = pizza;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public int getAmount() {
+        return amount;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 
     public Pizza.Sizes getSize() {
@@ -44,19 +45,37 @@ public class Item extends BaseUUIDEntity{
         this.size = size;
     }
 
+    public int getCost() {
+        return cost;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
+    }
+
     public boolean equalsContent(Item item) {
         if (this == item) return true;
         return item != null &&
-                quantity == item.quantity &&
                 size == item.size &&
                 Objects.equals(pizza, item.pizza);
     }
 
-    public static Item CreateItem(UUID uuid, Pizza pizza, int quantity, Pizza.Sizes size) {
-        return new Item(uuid, pizza, quantity, size);
+    public static Item CreateItem(UUID uuid, Pizza pizza, int amount, Pizza.Sizes size) {
+        return new Item(uuid, pizza, amount, size);
     }
 
-    public static Item CreateNewItem(Pizza pizza, int quantity, Pizza.Sizes size){
-        return new Item(pizza, quantity, size);
+    public static Item CreateNewItem(Pizza pizza, int amount, Pizza.Sizes size){
+        return new Item(pizza, amount, size);
+    }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "id=" + getUuid() +
+                "pizza=" + pizza +
+                ", amount=" + amount +
+                ", size=" + size +
+                ", cost=" + cost +
+                '}';
     }
 }

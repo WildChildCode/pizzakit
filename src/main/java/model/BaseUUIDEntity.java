@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
 
-abstract class BaseUUIDEntity implements Serializable {
+abstract public class BaseUUIDEntity implements Serializable {
     private UUID uuid;
 
     protected BaseUUIDEntity() {

@@ -1,12 +1,19 @@
 package managers;
 
+import model.Item;
+import model.Order;
 import model.Pizza;
 import util.PizzaKitConstants;
 
+import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 import java.sql.*;
+import java.sql.Date;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.*;
 
 /**
@@ -25,6 +32,7 @@ public class SimpleDataManager {
     public static synchronized SimpleDataManager getInstance() {
         return INSTANCE;
     }
+
     private synchronized void init() {
         initialized = false;
         HashMap<UUID, Pizza> pizzasMap = new HashMap<>();
@@ -34,15 +42,16 @@ public class SimpleDataManager {
         UUID pizzaId;
         try {
             InitialContext initContext = new InitialContext();
-            ds = (DataSource) initContext.lookup(PizzaKitConstants.DATA_SOURCE_JNDI_NAME);
+            Context env = (Context) initContext.lookup("java:/comp/env/");
+            ds = (DataSource) env.lookup(PizzaKitConstants.DATA_SOURCE_JNDI_NAME);
             Connection connection = ds.getConnection();
             Statement selectPizzasInfoStatement = connection.createStatement();
             ResultSet rs = selectPizzasInfoStatement.executeQuery("SELECT * FROM pizzakit_pizzas");
             while (rs.next()) {
-                pizzaId=Pizza.generateUuid(rs.getString("id"));
+                pizzaId = Pizza.generateUuid(rs.getString("id"));
                 pizza = Pizza.createPizza(pizzaId,
-                                          costsMap,
-                                          rs.getString("name"),
+                        costsMap,
+                        rs.getString("name"),
                         rs.getString("description"),
                         rs.getString("ingredients"),
                         rs.getString("image_url"));
@@ -51,12 +60,12 @@ public class SimpleDataManager {
             rs.close();
             selectPizzasInfoStatement.close();
             PreparedStatement selectPizzaSizesAndCosts =
-                    connection.prepareStatement("SELECT size, cost FROM PIZZAKIT_PIZZA_SIZES_COSTS WHERE pizza_id=?");
+                    connection.prepareStatement("SELECT size, cost FROM PIZZAKIT_PIZZA_SIZES_COSTS WHERE pizza_id = ?");
             for (UUID id : pizzasMap.keySet()) {
-                selectPizzaSizesAndCosts.setString(1, id.toString());
+                selectPizzaSizesAndCosts.setObject(1, id);
                 rs = selectPizzaSizesAndCosts.executeQuery();
                 costsMap = new HashMap<>();
-                while (rs.next()){
+                while (rs.next()) {
                     costsMap.put(Pizza.Sizes.valueOf(rs.getString("size")), rs.getInt("cost"));
                 }
                 rs.close();
@@ -72,6 +81,14 @@ public class SimpleDataManager {
         }
     }
 
+    public boolean isInitialized() {
+        return initialized;
+    }
+
+    public synchronized void reInit() {
+        init();
+    }
+
     public Pizza getPizza(UUID id) {
         return pizzas.get(id);
     }
@@ -80,11 +97,62 @@ public class SimpleDataManager {
         return pizzas.values();
     }
 
-    public boolean isInitialized() {
-        return initialized;
+    public void persistOrder(Order order) {
+        DataSource ds;
+        try {
+            InitialContext initContext = new InitialContext();
+            Context env = (Context) initContext.lookup("java:/comp/env/");
+            ds = (DataSource) env.lookup(PizzaKitConstants.DATA_SOURCE_JNDI_NAME);
+            Connection connection = ds.getConnection();
+            insertOrder(order, connection);
+            PreparedStatement statement;
+            Object pizzaSizesCostsId;
+            int insertedItemsCount = 0;
+            for (Item item : order) {
+                pizzaSizesCostsId = getSizesCostsUuid(item, connection);
+                statement = connection.prepareStatement("INSERT INTO pizzakit_order_item (id, order_id, size_cost_id, amount) values (?,?,?,?)");
+                statement.setObject(1, item.getUuid());
+                statement.setObject(2, order.getUuid());
+                statement.setObject(3, pizzaSizesCostsId);
+                statement.setInt(4, item.getAmount());
+                insertedItemsCount += statement.executeUpdate();
+            }
+        } catch (NamingException | SQLException e) {
+            //We will show message to user about this exception
+            throw new RuntimeException("There is a problem with DataBase", e);
+        }
+
     }
 
-    public synchronized void reInit(){
-        init();
+    private void insertOrder(Order order, Connection connection) throws SQLException {
+        final String inserOrderUqery = "INSERT INTO pizzakit_orders (id, date_time, shiped, paid) VALUES (?,?,?,?)";
+        PreparedStatement statement = connection.prepareStatement(inserOrderUqery);
+        statement.setObject(1, order.getUuid());
+        statement.setDate(2, new java.sql.Date(LocalDateTime.now().toEpochSecond(ZoneOffset.of(ZoneOffset.systemDefault().getId()))));
+        statement.setBoolean(3, false);
+        statement.setBoolean(4, false);
+        statement.executeUpdate();
+        //int rowsInsertedCount = statement.executeUpdate();
+        /*
+        if (rowsInsertedCount == 0)
+            throw new FuckBuHourseException()
+         */
+    }
+
+    private Object getSizesCostsUuid(Item item, Connection connection) throws SQLException {
+        final String sizeCostUuidQuery = "SELECT id from pizzakit_pizza_sizes_costs where pizza_id = ? and size = ?";
+        PreparedStatement statement = connection.prepareStatement(sizeCostUuidQuery);
+        statement.setObject(1, item.getPizza().getUuid());
+        statement.setString(2, item.getSize().name());
+        ResultSet rs = statement.executeQuery();
+        Object pizzaSizesCostsId;
+        if (rs.next()) {
+            pizzaSizesCostsId = rs.getObject(1);
+        }
+        else
+            throw new IllegalArgumentException("There is no pizza with the given size in menu");
+        rs.close();
+        statement.close();
+        return pizzaSizesCostsId;
     }
 }

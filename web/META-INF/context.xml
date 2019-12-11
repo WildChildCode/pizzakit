@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Context>
+    <!-- Database connection -->
+    <Resource driverClassName="org.postgresql.Driver"
+          maxIdle="2"
+          maxTotal="20"
+          maxWaitMillis="5000"
+          name="jdbc/pizzaDS"
+          username="root"
+          password="root"
+          type="javax.sql.DataSource"
+          url="jdbc:postgresql://localhost/postgres"/>
+
+    <ResourceLink name="jdbc/pizzaDS"
+              global="jdbc/pizzaDS"
+              type="javax.sql.DataSource" />
+
+    <!-- Default set of monitored resources -->
+    <WatchedResource>WEB-INF/web.xml</WatchedResource>
+</Context>

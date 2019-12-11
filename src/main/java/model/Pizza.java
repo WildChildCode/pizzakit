@@ -58,6 +58,7 @@ public final class Pizza extends BaseUUIDEntity {
     public Map<Sizes, Integer> getCostsMap() {
         return costsMap;
     }
+    public int getCost(Pizza.Sizes size) {return costsMap.get(size);}
     public String getName() {
         return name;
     }
