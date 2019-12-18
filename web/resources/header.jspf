@@ -1,0 +1,9 @@
+<%@page pageEncoding="UTF-8" %>
+<header>
+    <h1>
+        Pizza Italiano
+    </h1>
+    <aside>
+        Заказ пиццы on-line. (8-846) 000-00-01
+    </aside>
+</header>
