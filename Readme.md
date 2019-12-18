@@ -26,6 +26,7 @@ You can find ste-by-step instructions "how to build and run application" for eve
 - src/main/java - application classes
 - src/test/java - class for tests (it's created by maven and isn't used in the project)
 - web/ - root directory for the web module (files and directories here, except WEB-INF, used at front-end)
+  - WEB-INF/ - "special" dir with "used-by-server-files" 
   - css/ - directory for *.css files (contains styles)
   - js/ - directory for *.js files (contains java scripts) 
   - resources/ - directory contains different resources, like static images, used in pages
