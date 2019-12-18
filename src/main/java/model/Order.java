@@ -1,6 +1,5 @@
 package model;
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -26,8 +25,7 @@ public class Order extends BaseUUIDEntity implements Iterable<Item> {
         int newAmount = 0;
         boolean found = false;
         for (Item item : items) {
-            if (item.getPizza().equals(itemToAdd.getPizza()) &&
-                    item.getSize() == itemToAdd.getSize()) {
+            if (item.equalsContent(itemToAdd)) {
                 newAmount = item.getAmount() + itemToAdd.getAmount();
                 item.setAmount(newAmount);
                 found = true;
@@ -38,8 +36,25 @@ public class Order extends BaseUUIDEntity implements Iterable<Item> {
            items.add(itemToAdd);
     }
 
-    public boolean remove(Item item) {
-        return items.remove(item);
+    public boolean decreaseAmountOrRemove(Item itemToRemove) {
+        int newAmount = 0;
+        boolean remove = false;
+        boolean isDecrease = false;
+        for (Item item : items) {
+            if (item.equalsContent(itemToRemove)) {
+                newAmount = item.getAmount() + itemToRemove.getAmount();
+                if (newAmount <= 0) {
+                    remove = true;
+                } else {
+                    item.setAmount(newAmount);
+                    isDecrease = true;
+                }
+                break;
+            }
+        }
+        if (remove)
+            return items.remove(itemToRemove);
+        return isDecrease;
     }
 
     public boolean addPizzaAmount(Pizza pizza, Pizza.Sizes size, int amount) {
@@ -55,8 +70,8 @@ public class Order extends BaseUUIDEntity implements Iterable<Item> {
                 else {
                     remove = true;
                     removedItem = item;
-                    break;
                 }
+                break;
             }
         }
         if (remove)

@@ -1,5 +1,4 @@
-<%@ page import="javax.naming.NamingException" %>
-<%@ page import="java.sql.SQLException" %><%-- attribute isErrorPage="true" lets container to pass exceptions here  --%>
+<%-- attribute isErrorPage="true" lets container to pass exceptions here  --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isErrorPage="true" %>
 <html>
 <head>

@@ -1,8 +1,9 @@
+<%-- jsp directives --%>
 <%@ page import="managers.SimpleDataManager" %>
 <%@ page import="model.*" %>
 <%@ page import="util.PizzaKitConstants" %>
 <%@ page import="java.util.*" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" session="true" %> <%-- jsp directives --%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" session="true" %>
 <%@ page errorPage="error.jsp" %>
 <%--
   This is JSP commentaries block. It never renders in response output (but html commentaries block passes to output).
@@ -48,7 +49,7 @@
         order = (Order) session.getAttribute(PizzaKitConstants.ORDER_SESSION_ATTRIBUTE);
         dataManager = (SimpleDataManager) session.getAttribute(PizzaKitConstants.DATA_MANAGER_SESSION_ATTRIBUTE);
         //check if user have pressed add button
-        if (session.getAttribute(PizzaKitConstants.SUBMIT_BUTTON_REQUEST_PARAMETER_NAME) != null) {
+        if (request.getParameter(PizzaKitConstants.SUBMIT_BUTTON_REQUEST_PARAMETER_NAME) != null) {
             //construct item from request attributes
             Item item = constructItem(dataManager, request.getParameterMap());
             order.increaseAmountOrAdd(item);
@@ -56,7 +57,7 @@
     }
 %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8"/>
     <title>Заказ пиццы on-line</title>
@@ -64,16 +65,9 @@
     <link href="css/styles.css" rel="stylesheet">
 </head>
 <body>
-<header>
-    <h1>
-        Pizza Italiano
-    </h1>
-    <aside>
-        Заказ пиццы on-line. (8-846) 000-00-01
-    </aside>
-</header>
+<%@include file="resources/header.jspf"%> <%-- reuse of header content --%>
 <div id="cart">
-    <a href="cart.jsp" target="_blank">
+    <a href="cart.jsp">
         <img src="resources/img/shopping_cart.png" alt="cart" width="50"/>
     </a>
     <p id="cart-text">Товаров: <span id="cart-items-count"><%= order.size() %></span></p> <%-- you can see an expression here --%>
@@ -128,9 +122,6 @@
     <% pizzaCounter++;
         } %>
 </div>
-
-<footer class="footer">
-    <p>&copy; Copyright 2010 - 2018. Pizza Italiano. Все права защищены.</p>
-</footer>
+<%@include file="resources/footer.jspf"%>
 </body>
 </html>

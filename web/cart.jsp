@@ -23,14 +23,7 @@
     <link href="css/styles.css" rel="stylesheet">
 </head>
 <body>
-<header>
-    <h1>
-        Pizza Italiano
-    </h1>
-    <aside>
-        Заказ пиццы on-line. (8-846) 000-00-01
-    </aside>
-</header>
+<%@include file="resources/header.jspf"%> <%-- reuse of header content --%>
 <%
     Order order;
     SimpleDataManager dataManager;
@@ -46,7 +39,7 @@
         dataManager = (SimpleDataManager) session.getAttribute(PizzaKitConstants.DATA_MANAGER_SESSION_ATTRIBUTE);
     }
 %>
-<form id="items-list" class="items-list" action="" method="post">
+<form id="items-list" class="items-list" action="order.jsp" method="post">
     <h2 id="cart-header" class="cart-header">Ваш заказ</h2>
     <%
         int pizzaCounter = 1;
@@ -58,7 +51,7 @@
             id="<%= "pizza-" + idsSuffix %>"
             style="padding: 1vh 1vw;">
         <div style="overflow: auto; margin: 0 0 1em 0">
-            <h3 class="pizza_name_h3"><%= item.getPizza().getName() %>></h3>
+            <h3 class="pizza_name_h3"><%= item.getPizza().getName() %></h3>
             <div class="controls-pane">
                 <select
                         name="<%= PizzaKitConstants.SIZE_REQUEST_PARAMETER_NAME %>"
@@ -81,12 +74,10 @@
     <div>
         <input type="submit" name="order" value="Оформить заказ" class="submit-button control"
                formmethod="post" formaction="order.jsp"/>
-        <input type="button" name="back" value="Продолжить покупки" class="submit-button control"
+        <input type="submit" name="back" value="Продолжить покупки" class="submit-button control"
                formmethod="post" formaction="menu.jsp"/>
     </div>
 </form>
-<footer class="footer">
-    <p>&copy; Copyright 2010 - 2018. Pizza Italiano. Все права защищены.</p>
-</footer>
+<%@include file="resources/footer.jspf"%>
 </body>
 </html>
