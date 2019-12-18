@@ -28,4 +28,3 @@ You can find ste-by-step instructions "how to build and run application" for eve
   - js/ - directory for *.js files (contains java scripts) 
   - resources/ - directory contains different resources, like static images, used in pages
   - jsp pages are stored here
-  
