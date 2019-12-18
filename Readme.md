@@ -3,7 +3,7 @@
 ## Base principles
 - Examples placed to branches. Each Branch covers one topic
 - Branches has "names" hierarchy, like 'Topic-1-...'. 'Topic-2-JSP-1-Scriptlets...' and so on. 
-- Don't look at master branch - this is working branch +))) I create new branch everytime I have something to say 
+- Don't look at master branch - this is working branch +))) I'll create new branch when I have something to say 
 ## What software you will need to run examples
 1. JDK (1.8 minimum) [latest version of oracle jdk](https://www.oracle.com/technetwork/java/javase/downloads/index.html)
 2. IDE (IneliJIDEA Ultimate, for example. As a student you can obtain free license [here](https://www.jetbrains.com/ru-ru/community/education/)) 
