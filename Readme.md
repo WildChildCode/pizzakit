@@ -10,16 +10,13 @@
 3. [Maven](https://maven.apache.org) (or use IDEA's on-board maven) 
 4. [Apache-Tomcat](https://tomcat.apache.org) Application Server (If you are a newcomer, download zipped binaries (there are *.bat for Win and *.sh for bash in ./bin directory))
 5. Browser (FireFox and etc.)
-6. DataBase Management System, client and jdbc drivers
-   - MySQL: [MySQL Community server](https://www.mysql.com/products/community/), MySQL Workbench and JDBC are usually a part of server installer
-   - PostgerSQL: [PostgreSQL server](https://www.postgresql.org), [PgAdmin](https://www.pgadmin.org), [JDBC](https://jdbc.postgresql.org)
-   - OracleXE: [Oracle XE server](https://www.oracle.com/database/technologies/appdev/xe.html), [OracleSqlDeveloper](https://www.oracle.com/database/technologies/appdev/sql-developer.html), [JDBC](https://www.oracle.com/database/technologies/appdev/jdbc-downloads.html)
+6. PostgerSQL Data Base Management System : [PostgreSQL server](https://www.postgresql.org), client:  [PgAdmin](https://www.pgadmin.org), and jdbc drivers : [JDBC](https://jdbc.postgresql.org)
 >Note 1: 
 >JDBC drivers can be loaded by maven as dependency - see file pom.xml. 
 >As a DBMS client you can use "Database" Tool of InteliJ IDEA, or [Jetbrains DataGrip](https://www.jetbrains.com/datagrip/) - universal tool for different databases
 
 >Note 2: 
->I have used PostgreSQL 11 and Appache-tomcat-9.0.29 app server to run the examples 
+>I have used PostgreSQL 11 and Appache-tomcat-9.0.29 app server to run the examples
 ## Build and run examples
 You can find ste-by-step instructions "how to build and run application" for every branch in STARTAPPLICATION.PDF file
 ## Project structure
